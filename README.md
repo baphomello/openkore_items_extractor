@@ -1,10 +1,10 @@
-# Openkore Items Extractor
+# tableKore Extractor
 
 > Generate [OpenKore](https://github.com/OpenKore/openkore) table files directly from your Ragnarok Online client — always in sync, never outdated.
 
 ---
 
-Ragnarok Online servers constantly add new items, update names, and expand their item pool. Maintaining `items.txt` and `itemsdescriptions.txt` by hand is tedious and error-prone. **Openkore Items Extractor** automates this entirely: it reads `iteminfo.lub` straight from your RO client and generates ready-to-use OpenKore table files in seconds.
+Ragnarok Online servers constantly add new items, update names, and expand their item pool. Maintaining `items.txt`, `itemsdescriptions.txt` and other table files by hand is tedious and error-prone. **tableKore Extractor** automates this entirely: it reads data files straight from your RO client and generates ready-to-use OpenKore table files in seconds.
 
 No more copy-pasting. No more "Unknown Item (12345)". Every update, just run one command.
 
@@ -52,9 +52,9 @@ The generated files will appear in the same directory. Copy them to your OpenKor
 
 ## How it works
 
-RO clients store item data in a Lua file called `iteminfo.lub` inside GRF file or in the `System/` folder. This file contains the names and descriptions that the **client itself uses** — meaning it's always accurate, always up to date, and always in the language your server runs.
+RO clients store item data in a Lua file called `iteminfo.lub` inside the GRF or in the `System/` folder. This file contains the names and descriptions that the **client itself uses** — meaning it's always accurate, always up to date, and always in the language your server runs.
 
-**Openkore Items Extractor** parses this file, extracts the `identifiedDisplayName` and `identifiedDescriptionName` for each item, strips RO color codes (like `^0000FF` and `^000000`) from descriptions, and writes clean output files ready to drop into OpenKore.
+**tableKore Extractor** parses this file, extracts the `identifiedDisplayName` and `identifiedDescriptionName` for each item, strips RO color codes (like `^0000FF` and `^000000`) from descriptions, and writes clean output files ready to drop into OpenKore.
 
 ```
 iteminfo.lub  →  parser.py  →  writers.py  →  items.txt
@@ -80,10 +80,24 @@ This file already uses the same `ID#value#` format as OpenKore, so no conversion
 
 ---
 
+## Getting maps.txt from the GRF
+
+The `maps.txt` file — which maps internal map filenames to their display names — can be extracted directly from the GRF as well. Look for `data/mapnametable.txt` inside your client's GRF:
+
+1. Open **GRF Editor** and load your client's GRF (check additional GRFs too, as some servers ship an updated version in a separate patch file)
+2. Search for `data/mapnametable.txt`
+3. Right-click → **Extract**
+4. Rename the extracted file to `maps.txt`
+5. Copy it to `tables/<server>/` in your OpenKore installation
+
+The file uses the format `mapname.rsw#Display Name#` per line, which OpenKore reads directly. Comments (lines starting with `//`) and blank lines are ignored automatically.
+
+---
+
 ## Project structure
 
 ```
-iteminfo-tools/
+tableKore Extractor/
 ├── main.py      # CLI entry point — run this
 ├── parser.py    # Reads iteminfo.lub, returns Item dataclasses
 └── writers.py   # Writes items.txt, itemsdescriptions.txt and itemslotcounttable.txt
