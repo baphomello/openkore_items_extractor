@@ -43,7 +43,7 @@ python main.py --descriptions
 python main.py --slots
 
 # Specify a custom path to iteminfo.lub
-python main.py --items --descriptions --slots --input "C:/Ragnarok/System/iteminfo.lub"
+python main.py --items --descriptions --slots --iteminput "C:/Ragnarok/System/iteminfo.lub"
 ```
 
 The generated files will appear in the same directory. Copy them to your OpenKore `tables/<server>/` folder.

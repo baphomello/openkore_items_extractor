@@ -1,7 +1,7 @@
 import re
 from pathlib import Path
 
-from parser import Item
+from itemParser import Item
 
 _COLOR_CODE = re.compile(r'\^[0-9a-fA-F]{6}')
 _SEPARATOR  = '_______________________'
@@ -39,3 +39,11 @@ def write_slot_count(items: list[Item], path: str | Path) -> None:
     lines   = (f"{item.id}#{item.slot_count}#" for item in slotted)
     Path(path).write_text('\n'.join(lines) + '\n', encoding='utf-8')
     print(f"✓ {len(slotted)} slotted items  →  {path}")
+
+def write_skills_sp(skills: list, path: str | Path) -> None:
+    blocks = []
+    for handle, sp_values in skills:
+        lines = [f"{handle}#"] + [f"{v}#" for v in sp_values] + ["@"]
+        blocks.append('\n'.join(lines))
+    Path(path).write_text('\n'.join(blocks) + '\n', encoding='utf-8')
+    print(f"✓ {len(blocks)} skills  →  {path}")
