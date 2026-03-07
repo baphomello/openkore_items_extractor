@@ -1,10 +1,10 @@
-# tableKore Extractor
+# koreExtractor
 
 > Generate [OpenKore](https://github.com/OpenKore/openkore) table files directly from your Ragnarok Online client — always in sync, never outdated.
 
 ---
 
-Ragnarok Online servers constantly add new items, update names, and expand their item pool. Maintaining `items.txt`, `itemsdescriptions.txt` and other table files by hand is tedious and error-prone. **tableKore Extractor** automates this entirely: it reads data files straight from your RO client and generates ready-to-use OpenKore table files in seconds.
+Ragnarok Online servers constantly add new items, update names, and expand their item pool. Maintaining `items.txt`, `itemsdescriptions.txt` and other table files by hand is tedious and error-prone. **koreExtractor** automates this entirely: it reads data files straight from your RO client and generates ready-to-use OpenKore table files in seconds.
 
 No more copy-pasting. No more "Unknown Item (12345)". Every update, just run one command.
 
@@ -65,7 +65,7 @@ The generated files will appear in the same directory. Copy them to your OpenKor
 
 RO clients store item and skill data in Lua files inside the GRF or in the `System/` folder. These files contain the exact data the **client itself uses** — meaning they're always accurate, always up to date, and always in the language your server runs.
 
-**tableKore Extractor** parses these files, strips RO color codes (like `^0000FF` and `^000000`) from descriptions, and writes clean output files ready to drop into OpenKore.
+**koreExtractor** parses these files, strips RO color codes (like `^0000FF` and `^000000`) from descriptions, and writes clean output files ready to drop into OpenKore.
 
 ```
 iteminfo.lub      →  itemParser.py  →  writers.py  →  items.txt
@@ -116,7 +116,7 @@ All three files use the same `value#value#` format that OpenKore reads directly.
 ## Project structure
 
 ```
-tableKore_extractor/
+koreExtractor/
 ├── main.py              # CLI entry point — run this
 ├── itemParser.py        # Reads iteminfo.lub, returns Item dataclasses
 ├── skillParser.py       # Reads skillinfolist.lub, returns skill SP data
